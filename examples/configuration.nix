@@ -119,6 +119,9 @@
   networking.hostName = "nix-bitcoin";
   time.timeZone = "UTC";
 
+  # FIXME: Change less-privileged-user name
+  users.users.operator.name = "operator";
+
   # FIXME: Add your SSH pubkey
   services.openssh.enable = true;
   users.users.root = {

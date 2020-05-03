@@ -11,6 +11,7 @@
     ./spark-wallet.nix
     ./electrs.nix
     ./onion-chef.nix
+    ./nodeinfo.nix
     ./recurring-donations.nix
     ./hardware-wallets.nix
     ./lnd.nix

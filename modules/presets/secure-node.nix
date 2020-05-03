@@ -111,7 +111,6 @@ in {
       tor
       jq
       qrencode
-      nix-bitcoin.nodeinfo
     ];
 
     # Create user 'operator' which can access the node's services
@@ -130,14 +129,16 @@ in {
     };
     # Give operator access to onion hostnames
     services.onion-chef.enable = true;
-    services.onion-chef.access.operator = [ "bitcoind" "clightning" "nginx" "liquidd" "spark-wallet" "electrs" "sshd" ];
+    services.onion-chef.access.${config.users.users.operator.name} = [ "bitcoind" "clightning" "nginx" "liquidd" "spark-wallet" "electrs" "sshd" ];
+
+    services.nodeinfo.enable = true;
 
     security.sudo.configFile =
      (optionalString cfg.clightning.enable ''
-       operator    ALL=(clightning) NOPASSWD: ALL
+       ${config.users.users.operator.name}    ALL=(clightning) NOPASSWD: ALL
      '') +
      (optionalString cfg.lnd.enable ''
-       operator    ALL=(lnd) NOPASSWD: ALL
+       ${config.users.users.operator.name}    ALL=(lnd) NOPASSWD: ALL
      '');
 
     # Enable nixops ssh for operator (`nixops ssh operator@mynode`) on nixops-vbox deployments
