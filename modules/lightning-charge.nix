@@ -51,6 +51,7 @@ in {
           User = "lightning-charge";
           Restart = "on-failure";
           RestartSec = "10s";
+          ReadWritePaths = "${config.services.clightning.dataDir}";
       } // nix-bitcoin-services.nodejs
         // nix-bitcoin-services.allowTor;
     };
