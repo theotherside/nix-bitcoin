@@ -28,7 +28,6 @@ let
   '';
   createWebIndex = pkgs.writeText "make-index.sh" ''
     set -e
-    mkdir -p /var/www/
     cp ${indexFile} /var/www/index.html
     chown -R nginx /var/www/
     nodeinfo
@@ -48,6 +47,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d '/var/www' 0755 nginx root - -"
+    ];
+
     services.nginx = {
       enable = true;
       virtualHosts."_" = {

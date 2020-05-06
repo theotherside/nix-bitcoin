@@ -5,7 +5,6 @@ with lib;
 let
   cfg = config.services.nodeinfo;
   inherit (config) nix-bitcoin-services;
-  dataDir = "/var/lib/nodeinfo/";
   nodeinfo-script = pkgs.writeScript "nodeinfo.sh" ''
     set -e
     set -o pipefail
